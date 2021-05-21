@@ -8,7 +8,6 @@ export default {
     return {};
   },
   onShow() {
-    console.log("123333333");
     uni.getUserInfo({
       provider: "weixin",
       success: (infoRes) => {

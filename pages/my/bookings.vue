@@ -113,8 +113,8 @@
         view.order-content
           view.order__shop {{ item.title }}
           view.order__text {{ item.kidsCount }}儿童; {{ item.adultsCount }}成人
-    
-    <!-- 详情  弹框 -->
+
+    // 详情  弹框
     uni-popup(ref="popup", type="center")
       view.gift_box
         view.gift_box_clear
@@ -649,6 +649,7 @@ export default {
   margin: 30rpx auto 0;
   padding: 0 36rpx;
   box-sizing: border-box;
+  background: white;
 }
 
 .order-title {

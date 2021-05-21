@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     select(item, index) {
-      console.log(index);
+      // console.log(index);
       this.$emit("input", index);
     },
     setTabList() {

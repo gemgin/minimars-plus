@@ -50,7 +50,7 @@ export default {
 .tabs {
   height: 100rpx;
   background-color: white;
-  box-shadow: 0 0 4rpx 4rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4rpx 8rpx 2rpx rgba(0, 0, 0, 0.1);
   border-top: 2rpx solid #f9f9f9;
   display: flex;
   align-items: center;
