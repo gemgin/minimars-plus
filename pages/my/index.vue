@@ -27,7 +27,7 @@ view.my_box
   view.vip
   view.my_centre
     // 门店动态
-    view.marsCard_contentbox-content
+    //- view.marsCard_contentbox-content
       view.my_centre_boxone 门店动态
       scroll-view.modeOf_Payment-box(scroll-x="true")
         view.modeOf_Payment_scroll
@@ -56,27 +56,27 @@ view.my_box
           img
         span 会员码
         img(src="../../static/images/111.png")
-      view.my_vip_content_namebox(@click="goOrderList()")
+      view.my_vip_content_namebox(@click="goOrderList")
         view.menu__img.img-box
           img
         span 我的订单
         img(src="../../static/images/111.png")
-      view.my_vip_content_namebox
+      //- view.my_vip_content_namebox(@click="go")
         view.menu__img.img-box
           img
         span 消费历史
         img(src="../../static/images/111.png")
-      view.my_vip_content_namebox
+      //- view.my_vip_content_namebox
         view.menu__img.img-box
           img
         span 积分兑换
         img(src="../../static/images/111.png")
-      view.my_vip_content_namebox
+      //- view.my_vip_content_namebox
         view.menu__img.img-box
           img
         span 卡券兑换
         img(src="../../static/images/111.png")
-      view.my_vip_content_namebox(@click="goCover")
+      //- view.my_vip_content_namebox(@click="goCover")
         view.menu__img.img-box
           img
         span MARS封面
@@ -106,9 +106,7 @@ export default {
     };
   },
   onShow() {
-    console.log(this.heading);
     if (!this.nickname) {
-      console.log("meiyou denglu");
       this.imgulr = this.defaulturl;
     }
     this.user();
@@ -138,7 +136,6 @@ export default {
       this.$axios.getRequest("/auth/user").then((res) => {
         this.UserInformation = res;
         this.points = res.points;
-        console.log(this.points, "this.points");
         let defaulturl = "../../static/images/my/my_bj.png";
         if (this.UserInformation.currentCover) {
           this.imgulr = this.UserInformation.currentCover.posterUrl;
@@ -178,32 +175,32 @@ export default {
     },
     goCardBag() {
       uni.navigateTo({
-        url: "/pages/my/myCardBag",
+        url: "/pages/my/cards",
       });
     },
     goOrderList() {
       uni.navigateTo({
-        url: "/pages/my/myOrderlist",
+        url: "/pages/my/bookings",
       });
     },
     goTask() {
       uni.navigateTo({
-        url: "/pages/my/myTask",
+        url: "/pages/my/task",
       });
     },
     goVipCode() {
       uni.navigateTo({
-        url: "/pages/my/myVipCode",
+        url: "/pages/my/code",
       });
     },
     goMore() {
       uni.navigateTo({
-        url: "/pages/my/myMore",
+        url: "/pages/my/more",
       });
     },
     goCover() {
       uni.navigateTo({
-        url: "/pages/my/myCover",
+        url: "/pages/my/cover",
       });
     },
   },

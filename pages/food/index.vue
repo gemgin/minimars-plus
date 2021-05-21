@@ -116,6 +116,7 @@ export default {
   },
   data() {
     return {
+      isScanning: false,
       // 购物车价钱
       playMoney: 0,
       change: 0,
@@ -150,29 +151,53 @@ export default {
     if (option.s && option.t) {
       this.storeCode = option.s;
       this.tableId = option.t;
-    } else {
-      uni.scanCode({
-        success: res => {
-          console.log('scan type:' + res.scanType);
-          console.log('scan result:' + res.result);
-        },
-        fail: function(res) {
-          uni.switchTab({
-            url: '../index/index'
-          });
-        }
-      });
     }
   },
-  onShow() {
-    if (this.storeCode && this.tableId) {
-      this.getMenu();
+  async onShow() {
+    console.log("food/index:onShow");
+    if (this.isScanning) return;
+    try {
+      this.isScanning = true;
+      await this.scanTableCode();
+      this.isScanning = false;
+      uni.showLoading();
+      await this.getMenu();
+      uni.hideLoading();
+    } catch (e) {
+      uni.showToast({ title: e, icon: "none" });
     }
   },
   onHide() {
     this.swiperAutoplay = false;
   },
   methods: {
+    scanTableCode() {
+      return new Promise((resolve, reject) => {
+        uni.scanCode({
+          success: (res) => {
+            // console.log(res.scanType, res.path, res.result);
+            if (res.path) {
+              const [, s, t] = res.path.match(/s=(.*)&t=(.*)/);
+              console.log(s, t);
+              if (!s || !t) {
+                return reject("无效点餐二维码");
+              }
+              this.storeCode = s;
+              this.tableId = t;
+              resolve();
+            } else {
+              reject("无效点餐二维码");
+            }
+          },
+          fail: function (res) {
+            reject("扫码失败");
+            uni.switchTab({
+              url: "../index/index",
+            });
+          },
+        });
+      });
+    },
     async getMenu() {
       const storeMenu = await this.$axios.getRequest('/store-menu', {
         storeCode: this.storeCode,
